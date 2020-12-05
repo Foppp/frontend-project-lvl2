@@ -1,0 +1,40 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "cli app project 2 hexlet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "gendiff": "/gendiff.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Foppp/frontend-project-lvl2.git"
+  },
+  "keywords": [
+    "cli",
+    "project",
+    "2",
+    "hexlet",
+    "diff"
+  ],
+  "author": "Yura Chemeris",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Foppp/frontend-project-lvl2/issues"
+  },
+  "type": "module",
+  "homepage": "https://github.com/Foppp/frontend-project-lvl2#readme",
+  "dependencies": {
+    "commander": "^6.2.0",
+    "lodash": "^4.17.20"
+  },
+  "devDependencies": {
+    "eslint": "^7.14.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "jest": "^26.6.3"
+  }
+}
