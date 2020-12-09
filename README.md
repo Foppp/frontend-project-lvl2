@@ -1,7 +1,9 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/099d6254d37dbb3e28a2/maintainability)](https://codeclimate.com/github/Foppp/frontend-project-lvl2/maintainability)
+
+
+![NODE CI](https://github.com/actions/hello-world/workflows/Greet%20Everyone/badge.svg)
 ### Hexlet tests and linter status:
 ![Actions Status](/workflows/hexlet-check/badge.svg)
-
-[![Maintainability](https://api.codeclimate.com/v1/badges/099d6254d37dbb3e28a2/maintainability)](https://codeclimate.com/github/Foppp/frontend-project-lvl2/maintainability)
 
 ### EXAMPLE :
 
