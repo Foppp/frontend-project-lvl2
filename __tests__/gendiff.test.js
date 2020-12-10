@@ -2,7 +2,7 @@ import path, { dirname } from 'path';
 
 import { fileURLToPath } from 'url';
 import fs from 'fs';
-import { describe } from '@jest/globals';
+import { describe, test } from '@jest/globals';
 import genDiff from '../src/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -23,5 +23,11 @@ describe('Difference between two files', () => {
     const beforeFile11 = getFixturePath('yamlFileA.yml');
     const afterFile22 = getFixturePath('yamlFileB.yml');
     expect(genDiff(beforeFile11, afterFile22)).toEqual(result2);
+  });
+
+  test('Derictory or file Error', () => {
+    const errorFile1 = getFixturePath('yamlFileAr.yml');
+    const errorFile2 = getFixturePath('yamlFileBe.yml');
+    expect(() => genDiff(errorFile1, errorFile2)).toThrow();
   });
 });
