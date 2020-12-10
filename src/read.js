@@ -1,9 +1,11 @@
 import fs from 'fs';
 import path from 'path';
+import yaml from 'js-yaml';
 
 export default (filePath) => {
   const extentions = {
-    '.json': (p) => JSON.parse(fs.readFileSync(p).toString()),
+    '.json': (p) => JSON.parse(fs.readFileSync(p)),
+    '.yml': (y) => yaml.safeLoad(fs.readFileSync(y)),
   };
   const extPathName = path.extname(filePath);
   try {
