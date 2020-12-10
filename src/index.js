@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import parseFile from './read.js';
-import stringify from './output.js';
+import parseFile from './parser.js';
+import stringify from './print.js';
 
 export default (path1, path2) => {
   const file1 = parseFile(path1);
