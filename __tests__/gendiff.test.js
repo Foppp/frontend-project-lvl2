@@ -15,3 +15,10 @@ test('Difference between two .json files equal string', () => {
   const afterFile1 = getFixturePath('after1.json');
   expect(genDiff(beforeFile1, afterFile1)).toEqual(result);
 });
+
+test('Difference between two .yml files equal string', () => {
+  const result2 = readFile('yamlResult1.txt');
+  const beforeFile11 = getFixturePath('yamlFile1.yml');
+  const afterFile22 = getFixturePath('yamlFile2.yml');
+  expect(genDiff(beforeFile11, afterFile22)).toEqual(result2);
+});
