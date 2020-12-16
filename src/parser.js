@@ -14,3 +14,7 @@ export default (filePath) => {
     throw new Error('There is no such derictory or file!');
   }
 };
+
+// const first = '/Users/yurachemeris/Desktop/files-for-diff/long1.json';
+// const second = '/Users/yurachemeris/Desktop/files-for-diff/long2.json';
+// console.log(par(second));
