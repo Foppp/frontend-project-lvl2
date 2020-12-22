@@ -5,4 +5,4 @@
 
 ### EXAMPLE :
 
-[![asciicast](https://asciinema.org/a/94Hi2YOwOxy0mU7NPrbHc7PKq.svg)](https://asciinema.org/a/94Hi2YOwOxy0mU7NPrbHc7PKq)
+[![asciicast](https://asciinema.org/a/sH0XwJ9RHJmDJ3HKr3mVWXNDy.svg)](https://asciinema.org/a/sH0XwJ9RHJmDJ3HKr3mVWXNDy)
