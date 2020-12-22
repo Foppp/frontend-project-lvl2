@@ -12,8 +12,10 @@ const makeAstElement = (element, status = 'unchanged') => {
 const makeDiff = (file1, file2) => {
   const uniqKeys = (_.union(Object.keys(file1), Object.keys(file2))).sort();
   const astTree = uniqKeys.flatMap((element) => {
-    const firstElement = { [element]: file1[element] };
-    const secondElement = { [element]: file2[element] };
+    const value1 = file1[element] ?? String(file1[element]);
+    const value2 = file2[element] ?? String(file2[element]);
+    const firstElement = { [element]: value1 };
+    const secondElement = { [element]: value2 };
     const removedElement = makeAstElement(firstElement, 'removed');
     const addedElement = makeAstElement(secondElement, 'added');
     const unchangedElement = makeAstElement(firstElement);
