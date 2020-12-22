@@ -2,11 +2,12 @@
 import program from 'commander';
 
 import genDiff from '../index.js';
+import stylish from '../print.js';
 
 program
   .version('0.0.1')
   .description('Compares two configuration files and shows difference.')
-  .option('-f, --format [type]', 'output format');
+  .option('-f, --format [type]', 'output format', stylish);
 
 program
   .arguments('<filepath1> <filepath2>')
