@@ -1,23 +1,14 @@
 import _ from 'lodash';
-
-const makeAstElement = (element, status = 'unchanged') => {
-  if (!_.isObject(element)) {
-    return [element];
-  }
-  const r = Object.entries(element)
-    .reduce((acc, [name, val]) => [...acc, { name, value: makeAstElement(val), status }], []);
-  return r;
-};
+import makeAstElement from './utils.js';
 
 const makeDiff = (file1, file2) => {
   const uniqKeys = (_.union(Object.keys(file1), Object.keys(file2))).sort();
   const astTree = uniqKeys.flatMap((element) => {
-    const value1 = file1[element] ?? String(file1[element]);
-    const value2 = file2[element] ?? String(file2[element]);
-    const firstElement = { [element]: value1 };
-    const secondElement = { [element]: value2 };
+    const firstElement = { [element]: file1[element] };
+    const secondElement = { [element]: file2[element] };
     const removedElement = makeAstElement(firstElement, 'removed');
     const addedElement = makeAstElement(secondElement, 'added');
+    const changedElement = makeAstElement(firstElement, 'changed', secondElement);
     const unchangedElement = makeAstElement(firstElement);
     switch (true) {
       case _.isObject(file1[element]) && _.isObject(file2[element]):
@@ -27,7 +18,7 @@ const makeDiff = (file1, file2) => {
       case !_.has(file1, element):
         return addedElement;
       case file1[element] !== file2[element]:
-        return [removedElement, addedElement];
+        return changedElement;
       default:
         return unchangedElement;
     }

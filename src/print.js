@@ -1,20 +1,26 @@
 import _ from 'lodash';
 
-export default (astTree, replacer = ' ', spacesCount = 2) => {
-  const statusSymbol = { removed: '-', added: '+', unchanged: ' ' };
+const stylish = (astTree, replacer = ' ', spacesCount = 2) => {
+  const symbols = { removed: '-', added: '+', unchanged: ' ' };
   const iter = (tree, depth) => {
     if (!_.isObject(...tree)) {
       return tree;
     }
-    const indentSize = depth * spacesCount;
-    const currentIndent = replacer.repeat(indentSize);
-    const bracketIndent = replacer.repeat(indentSize - spacesCount);
-    const result = tree.map((element) => {
+    const spaceSize = depth * spacesCount;
+    const spaceInd = replacer.repeat(spaceSize);
+    const spaceBr = replacer.repeat(spaceSize - spacesCount);
+    const result = tree.flatMap((element) => {
       const { name, value, status } = element;
-      const resultValue = (_.has(element, 'children')) ? element.children : value;
-      return `${currentIndent}${statusSymbol[status]} ${name}: ${iter(resultValue, depth + 2)}`;
+      const currentValue = (_.has(element, 'children')) ? element.children : value;
+      if (_.has(element, 'newValue')) {
+        return element.newValue
+          .map((el) => `${spaceInd}${symbols[el.status]} ${el.name}: ${iter(el.value, depth + 2)}`);
+      }
+      return `${spaceInd}${symbols[status]} ${name}: ${iter(currentValue, depth + 2)}`;
     });
-    return ['{', ...result, `${bracketIndent}}`].join('\n');
+    return ['{', ...result, `${spaceBr}}`].join('\n');
   };
   return iter(astTree, 1);
 };
+
+export default stylish;
