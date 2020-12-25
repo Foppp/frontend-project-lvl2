@@ -2,7 +2,8 @@ import _ from 'lodash';
 
 const makeAstElement = (obj, status = 'unchanged', obj2 = {}) => {
   if (!_.isObject(obj)) {
-    return [obj ?? String(obj)];
+    const strElement = obj ?? String(obj);
+    return [strElement];
   }
   const resultValue = Object.entries(obj)
     .map(([name, val]) => ({ name, value: makeAstElement(val), status }));
