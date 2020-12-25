@@ -1,16 +1,28 @@
 import _ from 'lodash';
 
-const makeAstElement = (element1, status = 'unchanged', element2 = {}) => {
-  if (!_.isObject(element1)) {
-    return [String(element1)];
+const makeAstElement = (obj, status = 'unchanged', obj2 = {}) => {
+  if (!_.isObject(obj)) {
+    return [obj ?? String(obj)];
   }
-  const resultValue = Object.entries(element1)
+  const resultValue = Object.entries(obj)
     .map(([name, val]) => ({ name, value: makeAstElement(val), status }));
-  if (status === 'changed') {
-    const newValue = [...makeAstElement(element1, 'removed'), ...makeAstElement(element2, 'added')];
+  if (status === 'updated') {
+    const newValue = [...makeAstElement(obj, 'removed'), ...makeAstElement(obj2, 'added')];
     return _.merge(...resultValue, { newValue });
   }
   return resultValue;
 };
+const normalize = (value) => {
+  switch (true) {
+    case value.join() === 'null':
+      return null;
+    case _.isString(...value):
+      return `'${value}'`;
+    case _.isObject(...value):
+      return '[complex value]';
+    default:
+      return value;
+  }
+};
 
-export default makeAstElement;
+export { makeAstElement, normalize };
