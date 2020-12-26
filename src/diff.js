@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { makeAstElement } from './utils.js';
 
 const makeDiff = (file1, file2) => {
-  const uniqKeys = (_.union(Object.keys(file1), Object.keys(file2))).sort();
+  const uniqKeys = _.sortBy(_.union(Object.keys(file1), Object.keys(file2)));
   const astTree = uniqKeys.flatMap((element) => {
     const firstElement = { [element]: file1[element] };
     const secondElement = { [element]: file2[element] };
