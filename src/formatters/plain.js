@@ -20,7 +20,7 @@ const plain = (elements, propPath = []) => {
         return output[status](propAcc.join('.'), value);
       }
       return plain(element.children, propAcc);
-    }, []);
+    });
   return result.join('\n');
 };
 

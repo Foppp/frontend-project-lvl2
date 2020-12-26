@@ -8,7 +8,7 @@ const makeDiff = (file1, file2) => {
     const secondElement = { [element]: file2[element] };
     const removedElement = makeAstElement(firstElement, 'removed');
     const addedElement = makeAstElement(secondElement, 'added');
-    const changedElement = makeAstElement(firstElement, 'updated', secondElement);
+    const changedElement = makeAstElement(secondElement, 'updated');
     const nestedElement = makeAstElement(firstElement, 'nested');
     const unchangedElement = makeAstElement(firstElement);
     switch (true) {
@@ -19,12 +19,12 @@ const makeDiff = (file1, file2) => {
       case !_.has(file1, element):
         return addedElement;
       case file1[element] !== file2[element]:
-        return changedElement;
+        return _.merge(...changedElement, { newValue: [...removedElement, ...addedElement] });
       default:
         return unchangedElement;
     }
   });
-  return astTree.flat();
+  return astTree;
 };
 
 export default makeDiff;
