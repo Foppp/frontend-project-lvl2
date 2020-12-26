@@ -3,7 +3,7 @@ import _ from 'lodash';
 const symbols = { removed: '-', added: '+' };
 const stylish = (astTree, depth = 1) => {
   const [treeElement] = astTree;
-  if (!_.isObject(treeElement)) {
+  if (typeof treeElement !== 'object') {
     return treeElement;
   }
   const replacer = ' ';
