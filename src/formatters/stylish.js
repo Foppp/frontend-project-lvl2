@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
+const symbols = { removed: '-', added: '+' };
 const stylish = (astTree, depth = 1) => {
-  const symbols = { removed: '-', added: '+' };
   const [treeElement] = astTree;
   if (!_.isObject(treeElement)) {
     return treeElement;
