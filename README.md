@@ -6,7 +6,11 @@
 ### EXAMPLES :
 
 [Simple .json file example](https://asciinema.org/a/0sTTZYnxy7zxpQxJ4A8MNwO74)
+
 [Simple .yaml file example](https://asciinema.org/a/qnvtnPCgCbCbNCdIzqMl81YFi)
+
 [Nested .json and .yaml files example](https://asciinema.org/a/qqdqbo6NJD5ahVVdSBB410E7D)
+
 [Nested .json and .yaml files with plain format example](https://asciinema.org/a/WGrE5e3GknX2y3eQYnIubc2g2)
+
 [Nested .json and .yaml files with json format example](https://asciinema.org/a/3fkwLXmoY6o6I5fZNIRDdTm7d)
