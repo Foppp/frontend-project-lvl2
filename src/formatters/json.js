@@ -5,13 +5,13 @@ const formatTree = (tree) => {
     const filterRemoved = elements.filter((el) => el.status !== 'removed');
     const result = filterRemoved
       .reduce((acc, element) => {
-        const { name, value } = element;
+        const { name, value, status } = element;
         const propAcc = [...propPath, name];
         if (!_.isObject(...value)) {
           return _.set(acc, propAcc, ...value);
         }
-        const nestedValue = _.has(element, 'children') ? element.children : value;
-        const updatedValue = _.has(element, 'newValue') ? element.newValue : nestedValue;
+        const nestedValue = status === 'nested' ? element.children : value;
+        const updatedValue = status === 'updated' ? element.newValue : nestedValue;
         return _.merge(acc, iter(updatedValue, propAcc));
       }, {});
     return result;

@@ -13,9 +13,9 @@ const stylish = (astTree, depth = 1) => {
   const spaceBr = replacer.repeat(spaceSize - spacesCount);
   const result = astTree.flatMap((element) => {
     const { name, value, status } = element;
-    const currentValue = (_.has(element, 'children')) ? element.children : value;
+    const currentValue = (status === 'nested') ? element.children : value;
     const currentSymbol = symbols[status] ?? replacer;
-    if (_.has(element, 'newValue')) {
+    if (status === 'updated') {
       return element.newValue
         .map((el) => `${spaceInd}${symbols[el.status]} ${el.name}: ${stylish(el.value, depth + 2)}`);
     }

@@ -1,9 +1,9 @@
-import { normalize } from '../utils.js';
+import { normalize as norm } from '../utils.js';
 
 const output = {
   removed: (p) => `Property '${p}' was removed`,
-  added: (p, val) => `Property '${p}' was added with value: ${normalize(val)}`,
-  updated: (p, val, nVal) => `Property '${p}' was updated. From ${normalize(val)} to ${normalize(nVal)}`,
+  added: (p, val) => `Property '${p}' was added with value: ${norm(val)}`,
+  updated: (p, val, nVal) => `Property '${p}' was updated. From ${norm(val)} to ${norm(nVal)}`,
   nested: () => [],
 };
 const plain = (elements, propPath = []) => {
