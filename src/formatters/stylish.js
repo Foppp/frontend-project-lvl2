@@ -1,9 +1,10 @@
+import _ from 'lodash';
+
 const symbols = { removed: '-', added: '+' };
 const stylish = (astTree) => {
   const iter = (tree, depth) => {
-    const [treeElement] = tree;
-    if (typeof treeElement !== 'object') {
-      return treeElement;
+    if (!_.isObject(...tree)) {
+      return tree;
     }
     const replacer = ' ';
     const spacesCount = 2;
