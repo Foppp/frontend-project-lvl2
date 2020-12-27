@@ -3,9 +3,6 @@ import _ from 'lodash';
 const symbols = { removed: '-', added: '+' };
 const stylish = (astTree) => {
   const iter = (tree, depth) => {
-    if (!_.isObject(...tree)) {
-      return tree;
-    }
     const replacer = ' ';
     const spacesCount = 2;
     const spaceSize = depth * spacesCount;
