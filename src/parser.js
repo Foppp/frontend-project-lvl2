@@ -2,16 +2,19 @@ import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
 
-const pathResolve = (filepath) => path.resolve(process.cwd(), filepath);
-
+const readFile = (filePath) => {
+  const absolutePath = path.resolve(process.cwd(), filePath);
+  const data = fs.readFileSync(absolutePath);
+  return data;
+};
 const parseFile = (filePath) => {
+  const fileData = readFile(filePath);
+  const extName = path.extname(filePath);
   const extentions = {
-    '.json': (p) => JSON.parse(fs.readFileSync(p)),
-    '.yml': (y) => yaml.safeLoad(fs.readFileSync(y)),
+    '.json': (p) => JSON.parse(p),
+    '.yml': (y) => yaml.safeLoad(y),
   };
-  const resolvedPath = pathResolve(filePath);
-  const extPathName = path.extname(resolvedPath);
-  return extentions[extPathName](resolvedPath);
+  return extentions[extName](fileData);
 };
 
 export default parseFile;
