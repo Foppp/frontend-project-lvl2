@@ -1,14 +1,14 @@
 const symbols = { removed: '-', added: '+' };
 const stylish = (astTree, depth = 1) => {
   const [treeElement] = astTree;
-  if (typeof treeElement !== 'object') {
-    return treeElement;
-  }
   const replacer = ' ';
   const spacesCount = 2;
   const spaceSize = depth * spacesCount;
   const spaceInd = replacer.repeat(spaceSize);
   const spaceBr = replacer.repeat(spaceSize - spacesCount);
+  if (typeof treeElement !== 'object') {
+    return treeElement;
+  }
   const result = astTree.flatMap((element) => {
     const { name, value, status } = element;
     const currentValue = (status === 'nested') ? element.children : value;
