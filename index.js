@@ -6,6 +6,6 @@ const genDiff = (path1, path2, formatName = 'stylish') => {
   const parsedFile1 = parseFile(path1);
   const parsedFile2 = parseFile(path2);
   const result = makeDiff(parsedFile1, parsedFile2);
-  return format(formatName, result);
+  return format(result, formatName);
 };
 export default genDiff;

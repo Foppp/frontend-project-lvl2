@@ -2,7 +2,7 @@ import stylish from './stylish.js';
 import plain from './plain.js';
 import formatJson from './json.js';
 
-const format = (formatterName, tree) => {
+const format = (tree, formatterName) => {
   const formatters = {
     stylish: () => stylish(tree),
     plain: () => plain(tree),
