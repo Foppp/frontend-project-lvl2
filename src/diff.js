@@ -1,6 +1,13 @@
 import _ from 'lodash';
-import { makeAstElement } from './utils.js';
 
+const makeAstElement = (element, status = 'unchanged') => {
+  const stringElement = element ?? String(element);
+  if (!_.isObject(element)) {
+    return [stringElement];
+  }
+  return Object.entries(element)
+    .map(([name, val]) => ({ name, value: makeAstElement(val), status }));
+};
 const makeDiff = (file1, file2) => {
   const uniqKeys = _.sortBy(_.union(Object.keys(file1), Object.keys(file2)));
   const astTree = uniqKeys.flatMap((element) => {
@@ -11,18 +18,19 @@ const makeDiff = (file1, file2) => {
     const changedElement = makeAstElement(secondElement, 'updated');
     const nestedElement = makeAstElement(firstElement, 'nested');
     const unchangedElement = makeAstElement(firstElement);
-    switch (true) {
-      case _.isObject(file1[element]) && _.isObject(file2[element]):
-        return _.merge(...nestedElement, { children: makeDiff(file1[element], file2[element]) });
-      case !_.has(file2, element):
-        return removedElement;
-      case !_.has(file1, element):
-        return addedElement;
-      case file1[element] !== file2[element]:
-        return _.merge(...changedElement, { newValue: [...removedElement, ...addedElement] });
-      default:
-        return unchangedElement;
+    if (_.isObject(file1[element]) && _.isObject(file2[element])) {
+      return _.merge(...nestedElement, { children: makeDiff(file1[element], file2[element]) });
     }
+    if (!_.has(file2, element)) {
+      return removedElement;
+    }
+    if (!_.has(file1, element)) {
+      return addedElement;
+    }
+    if (file1[element] !== file2[element]) {
+      return _.merge(...changedElement, { newValue: [...removedElement, ...addedElement] });
+    }
+    return unchangedElement;
   });
   return astTree;
 };

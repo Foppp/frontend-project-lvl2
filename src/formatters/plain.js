@@ -1,5 +1,17 @@
-import { normalize as norm } from '../utils.js';
+import _ from 'lodash';
 
+const normalize = (value) => {
+  if (value.join() === 'null') {
+    return null;
+  }
+  if (_.isString(...value)) {
+    return `'${value}'`;
+  }
+  if (_.isObject(...value)) {
+    return '[complex value]';
+  }
+  return value;
+};
 const plain = (tree) => {
   const iter = (elements, propPath) => {
     const result = elements.flatMap((element) => {
@@ -9,9 +21,9 @@ const plain = (tree) => {
       const main = `Property '${propAcc.join('.')}' was ${status}`;
       switch (status) {
         case 'updated':
-          return `${main}. From ${norm(removed.value)} to ${norm(added.value)}`;
+          return `${main}. From ${normalize(removed.value)} to ${normalize(added.value)}`;
         case 'added':
-          return `${main} with value: ${norm(value)}`;
+          return `${main} with value: ${normalize(value)}`;
         case 'removed':
           return main;
         case 'nested':
