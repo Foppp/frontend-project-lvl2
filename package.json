@@ -2,9 +2,9 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "index.js",
   "bin": {
-    "gendiff": "src/bin/gendiff.js"
+    "gendiff": "bin/gendiff.js"
   },
   "engines": {
     "node": ">=13"
