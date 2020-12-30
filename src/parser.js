@@ -7,13 +7,13 @@ const readFile = (filePath) => {
   const data = fs.readFileSync(absolutePath);
   return data;
 };
+const extentions = {
+  '.json': JSON.parse,
+  '.yml': yaml.safeLoad,
+};
 const parseFile = (filePath) => {
   const fileData = readFile(filePath);
   const extName = path.extname(filePath);
-  const extentions = {
-    '.json': (p) => JSON.parse(p),
-    '.yml': (y) => yaml.safeLoad(y),
-  };
   return extentions[extName](fileData);
 };
 
