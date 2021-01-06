@@ -7,7 +7,7 @@
     "gendiff": "bin/gendiff.js"
   },
   "engines": {
-    "node": ">=13"
+    "node": ">=14"
   },
   "scripts": {
     "test": "npx -n --experimental-vm-modules jest --watch"
