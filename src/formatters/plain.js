@@ -1,36 +1,35 @@
 import _ from 'lodash';
+import {
+  getName, getValue, getStatus, getChildren, isNested, getNewValue,
+} from './utils.js';
 
 const normalize = (value) => {
-  if (value.join() === 'null') {
-    return null;
-  }
-  if (_.isString(...value)) {
-    return `'${value}'`;
-  }
-  if (_.isObject(...value)) {
-    return '[complex value]';
-  }
-  return value;
+  const strValue = _.isString(value) ? `'${value}'` : value;
+  return _.isObject(value) ? '[complex value]' : strValue;
 };
+
+const print = (status, prop, value, newValue) => {
+  const main = `Property '${prop.join('.')}' was ${status}`;
+  const output = {
+    removed: main,
+    added: `${main} with value: ${normalize(value)}`,
+    updated: `${main}. From ${normalize(value)} to ${normalize(newValue)}`,
+  };
+  return output[status];
+};
+
 const plain = (tree) => {
   const iter = (elements, propPath) => {
     const result = elements.flatMap((element) => {
-      const { name, value, status } = element;
-      const [removed, added] = element.newValue ?? [];
+      const name = getName(element);
+      const status = getStatus(element);
+      const value = getValue(element);
       const propAcc = [...propPath, name];
-      const main = `Property '${propAcc.join('.')}' was ${status}`;
-      switch (status) {
-        case 'updated':
-          return `${main}. From ${normalize(removed.value)} to ${normalize(added.value)}`;
-        case 'added':
-          return `${main} with value: ${normalize(value)}`;
-        case 'removed':
-          return main;
-        case 'nested':
-          return iter(element.children, propAcc);
-        default:
-          return [];
+      if (!isNested(element)) {
+        const printedOutput = print(status, propAcc, value, getNewValue(element));
+        return printedOutput ?? [];
       }
+      return iter(getChildren(element), propAcc);
     });
     return result.join('\n');
   };

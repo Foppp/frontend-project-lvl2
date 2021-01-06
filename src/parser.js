@@ -2,9 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
 
+const makeAbsPath = (filepath) => path.resolve(process.cwd(), filepath);
+
 const readFile = (filePath) => {
-  const absolutePath = path.resolve(process.cwd(), filePath);
-  const data = fs.readFileSync(absolutePath);
+  const data = fs.readFileSync(makeAbsPath(filePath));
   return data;
 };
 const extentions = {

@@ -1,37 +1,27 @@
 import _ from 'lodash';
 
-const makeAstElement = (element, status = 'unchanged') => {
-  const stringElement = element ?? String(element);
-  if (!_.isObject(element)) {
-    return [stringElement];
-  }
-  return Object.entries(element)
-    .map(([name, val]) => ({ name, value: makeAstElement(val), status }));
-};
 const makeDiff = (file1, file2) => {
   const uniqKeys = _.union(Object.keys(file1), Object.keys(file2));
   const sortedKeys = _.sortBy(uniqKeys);
-  const astTree = sortedKeys.flatMap((element) => {
-    const firstElement = { [element]: file1[element] };
-    const secondElement = { [element]: file2[element] };
-    const removedElement = makeAstElement(firstElement, 'removed');
-    const addedElement = makeAstElement(secondElement, 'added');
-    const changedElement = makeAstElement(secondElement, 'updated');
-    const nestedElement = makeAstElement(firstElement, 'nested');
-    const unchangedElement = makeAstElement(firstElement);
-    if (_.isObject(file1[element]) && _.isObject(file2[element])) {
-      return _.merge(...nestedElement, { children: makeDiff(file1[element], file2[element]) });
+  const astTree = sortedKeys.map((element) => {
+    const value1 = file1[element];
+    const value2 = file2[element];
+    const valueObjects = _.isObject(value1) && _.isObject(value2);
+    if (value1 === value2 || valueObjects) {
+      const children = valueObjects ? makeDiff(value1, value2) : [];
+      return {
+        name: element, value: value1, status: 'unchanged', children,
+      };
     }
     if (!_.has(file2, element)) {
-      return removedElement;
+      return { name: element, value: value1, status: 'removed' };
     }
     if (!_.has(file1, element)) {
-      return addedElement;
+      return { name: element, value: value2, status: 'added' };
     }
-    if (file1[element] !== file2[element]) {
-      return _.merge(...changedElement, { newValue: [...removedElement, ...addedElement] });
-    }
-    return unchangedElement;
+    return {
+      name: element, value: value1, status: 'updated', newValue: value2,
+    };
   });
   return astTree;
 };
