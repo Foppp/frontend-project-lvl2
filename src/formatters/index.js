@@ -7,11 +7,6 @@ const formatters = {
   json: (tree) => tree,
 };
 
-const format = (tree, formatterName) => {
-  try {
-    return formatters[formatterName](tree);
-  } catch (e) {
-    throw new Error('There is no such file from this path or wrong name of formatter');
-  }
-};
+const format = (tree, formatterName) => formatters[formatterName](tree);
+
 export default format;
