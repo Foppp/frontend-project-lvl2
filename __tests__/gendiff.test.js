@@ -16,7 +16,7 @@ const yamlFile2 = getFixturePath('yamlFileB.yml');
 
 const stylishResult = readFile('stylishResult.txt');
 const plainResult = readFile('plainResult.txt');
-const jsonResult = readFile('jsonResult.json');
+const jsonResult = JSON.parse(readFile('jsonResult.json'));
 
 const fileFormats = [['json', jsonFile1, jsonFile2], ['yaml', yamlFile1, yamlFile2]];
 const resultFormats = [['stylish', stylishResult], ['plain', plainResult], ['json', jsonResult]];
