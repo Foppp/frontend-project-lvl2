@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 const getName = (element) => element.name;
 const getValue = (element) => element.value;
 const getStatus = (element) => element.status;
