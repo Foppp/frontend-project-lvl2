@@ -10,6 +10,5 @@ program
   .description('Compares two configuration files and shows difference.')
   .action(
     (filepath1, filepath2) => console.log(genDiff(filepath1, filepath2, program.format)),
-  );
-
-program.parse(process.argv);
+  )
+  .parse(process.argv);

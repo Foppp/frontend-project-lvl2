@@ -1,7 +1,4 @@
 import _ from 'lodash';
-import {
-  getName, getValue, getStatus, getChildren, isNested, isUpdated, getNewValue,
-} from './utils.js';
 
 const symbols = { removed: '-', added: '+' };
 
@@ -13,21 +10,20 @@ const stringifyElement = (tree, depth, space, iter = stringifyElement) => {
   }
   return tree
     .flatMap((element) => {
-      const name = getName(element);
-      const status = getStatus(element);
-      const value = isNested(element) ? getChildren(element) : getValue(element);
+      const { name, value, status } = element;
+      const currentValue = (status === 'nested') ? element.children : value;
       const symbol = symbols[status] ?? ' ';
-      if (isUpdated(element)) {
+      if (status === 'updated') {
         const oldName = `${space}${symbols.removed} ${name}`;
-        const oldValue = `${iter(value, depth + 2)}`;
+        const oldValue = `${iter(currentValue, depth + 2)}`;
         const newName = `${space}${symbols.added} ${name}`;
-        const newValue = `${iter(getNewValue(element), depth + 2)}`;
+        const newValue = `${iter(element.newValue, depth + 2)}`;
         return [
           `${oldName}: ${oldValue}`,
           `${newName}: ${newValue}`,
         ];
       }
-      return `${space}${symbol} ${name}: ${iter(value, depth + 2)}`;
+      return `${space}${symbol} ${name}: ${iter(currentValue, depth + 2)}`;
     });
 };
 

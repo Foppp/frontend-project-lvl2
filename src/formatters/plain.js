@@ -1,7 +1,4 @@
 import _ from 'lodash';
-import {
-  getName, getValue, getStatus, getChildren, isNested, getNewValue,
-} from './utils.js';
 
 const normalize = (value) => {
   const strValue = _.isString(value) ? `'${value}'` : value;
@@ -18,22 +15,18 @@ const print = (status, prop, value, newValue) => {
   return output[status];
 };
 
-const plain = (tree) => {
+export default (tree) => {
   const iter = (elements, propPath) => {
     const result = elements.flatMap((element) => {
-      const name = getName(element);
-      const status = getStatus(element);
-      const value = getValue(element);
+      const { name, value, status } = element;
       const propAcc = [...propPath, name];
-      if (!isNested(element)) {
-        const printedOutput = print(status, propAcc, value, getNewValue(element));
+      if (status !== 'nested') {
+        const printedOutput = print(status, propAcc, value, element.newValue);
         return printedOutput ?? [];
       }
-      return iter(getChildren(element), propAcc);
+      return iter(element.children, propAcc);
     });
     return result.join('\n');
   };
   return iter(tree, []);
 };
-
-export default plain;
