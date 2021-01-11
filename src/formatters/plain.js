@@ -10,7 +10,7 @@ const mapping = {
   added: (element, propPath) => `Property '${propPath.join('.')}' was ${element.status} with value: ${normalize(element.value)}`,
   updated: (element, propPath) => `Property '${propPath.join('.')}' was ${element.status}. From ${normalize(element.value)} to ${normalize(element.newValue)}`,
   unchanged: () => [],
-  nested: (element, propPath, iteration) => iteration(element.children, propPath),
+  nested: (element, propPath, iter) => iter(element.children, propPath),
 };
 
 export default (tree) => {
