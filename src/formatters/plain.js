@@ -5,27 +5,22 @@ const normalize = (value) => {
   return _.isObject(value) ? '[complex value]' : strValue;
 };
 
-const print = (status, prop, value, newValue) => {
-  const main = `Property '${prop.join('.')}' was ${status}`;
-  const output = {
-    removed: main,
-    added: `${main} with value: ${normalize(value)}`,
-    updated: `${main}. From ${normalize(value)} to ${normalize(newValue)}`,
-  };
-  return output[status];
+const mapping = {
+  removed: (element, propPath) => `Property '${propPath.join('.')}' was ${element.status}`,
+  added: (element, propPath) => `Property '${propPath.join('.')}' was ${element.status} with value: ${normalize(element.value)}`,
+  updated: (element, propPath) => `Property '${propPath.join('.')}' was ${element.status}. From ${normalize(element.value)} to ${normalize(element.newValue)}`,
+  unchanged: () => [],
+  nested: (element, propPath, iteration) => iteration(element.children, propPath),
 };
 
 export default (tree) => {
-  const iter = (elements, propPath) => {
-    const result = elements.flatMap((element) => {
-      const { name, value, status } = element;
-      const propAcc = [...propPath, name];
-      if (status !== 'nested') {
-        const printedOutput = print(status, propAcc, value, element.newValue);
-        return printedOutput ?? [];
-      }
-      return iter(element.children, propAcc);
-    });
+  const iter = (astTree, propPath) => {
+    const result = astTree
+      .flatMap((astElement) => {
+        const { name, status } = astElement;
+        const propPathAcc = [...propPath, name];
+        return mapping[status](astElement, propPathAcc, iter);
+      });
     return result.join('\n');
   };
   return iter(tree, []);
