@@ -7,7 +7,7 @@ test:
 	npm test
 
 test-coverage:
-	npm test --coverage
+	npx -n --experimental-vm-modules jest --coverage
 
 lint:
 	npx eslint .
