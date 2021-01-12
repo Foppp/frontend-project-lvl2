@@ -1,14 +1,13 @@
 import _ from 'lodash';
 
-const makeOpenIdent = (depth, count = 2, replacer = ' ') => replacer.repeat(depth * count);
-const makeCloseIdent = (depth, count = 2, replacer = ' ') => replacer.repeat((depth * count) - count);
+const makeIdent = (depth, kind = 'open') => (kind === 'close' ? ' '.repeat(depth * 2 - 2) : ' '.repeat(depth * 2));
 
 const stringifyValue = (obj, depth) => {
   if (!_.isObject(obj)) {
     return obj;
   }
-  const openedIdent = makeOpenIdent(depth);
-  const closedIdent = makeCloseIdent(depth);
+  const openedIdent = makeIdent(depth);
+  const closedIdent = makeIdent(depth, 'close');
   const stringifiedElements = Object.entries(obj)
     .map(([key, val]) => `${openedIdent}  ${key}: ${stringifyValue(val, depth + 2)}`);
   return ['{', ...stringifiedElements, `${closedIdent}}`].join('\n');
@@ -27,8 +26,8 @@ const mapping = {
 
 const stylish = (tree) => {
   const iter = (astTree, depth) => {
-    const openedIdent = makeOpenIdent(depth);
-    const closedIdent = makeCloseIdent(depth);
+    const openedIdent = makeIdent(depth);
+    const closedIdent = makeIdent(depth, 'close');
     const stringifiedElements = astTree
       .flatMap((astElement) => mapping[astElement.status](astElement, openedIdent, depth, iter));
     return ['{', ...stringifiedElements, `${closedIdent}}`].join('\n');
