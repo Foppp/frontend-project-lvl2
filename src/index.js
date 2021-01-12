@@ -16,12 +16,12 @@ const readFile = (filePath) => {
 const getExt = (extPath) => _.last(path.extname(extPath).split('.'));
 
 export default (path1, path2, formatName = 'stylish') => {
-  const firstFile = readFile(path1);
-  const secondFile = readFile(path2);
-  const firstFileExt = getExt(path1);
-  const secondFileExt = getExt(path2);
-  const parsedFile1 = parseFile(firstFile, firstFileExt);
-  const parsedFile2 = parseFile(secondFile, secondFileExt);
+  const file1 = readFile(path1);
+  const file2 = readFile(path2);
+  const fileExt1 = getExt(path1);
+  const fileExt2 = getExt(path2);
+  const parsedFile1 = parseFile(file1, fileExt1);
+  const parsedFile2 = parseFile(file2, fileExt2);
   const astTree = makeDiff(parsedFile1, parsedFile2);
   return format(astTree, formatName);
 };
