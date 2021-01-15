@@ -9,7 +9,7 @@ const formatters = {
 
 export default (tree, formatterName) => {
   if (!formatters[formatterName]) {
-    throw new Error('There is no such formatter');
+    throw new Error(`"${formatterName}" - is not valid formatter! Valid formaters: (${Object.keys(formatters)})`);
   }
   return formatters[formatterName](tree);
 };

@@ -1,30 +1,30 @@
 import _ from 'lodash';
 
-const makeDiff = (fileContent1, fileContent2) => {
-  const uniqKeys = _.union(Object.keys(fileContent1), Object.keys(fileContent2));
+const makeDiff = (data1, data2) => {
+  const uniqKeys = _.union(Object.keys(data1), Object.keys(data2));
   const sortedKeys = _.sortBy(uniqKeys);
-  return sortedKeys.map((element) => {
-    if (_.isObject(fileContent1[element]) && _.isObject(fileContent2[element])) {
-      const children = makeDiff(fileContent1[element], fileContent2[element]);
+  return sortedKeys.map((key) => {
+    if (_.isPlainObject(data1[key]) && _.isPlainObject(data2[key])) {
+      const children = makeDiff(data1[key], data2[key]);
       return {
-        name: element, value: fileContent1[element], status: 'nested', children,
+        name: key, value: data1[key], status: 'nested', children,
       };
     }
-    if (!_.has(fileContent2, element)) {
-      return { name: element, value: fileContent1[element], status: 'removed' };
+    if (!_.has(data2, key)) {
+      return { name: key, value: data1[key], status: 'removed' };
     }
-    if (!_.has(fileContent1, element)) {
-      return { name: element, value: fileContent2[element], status: 'added' };
+    if (!_.has(data1, key)) {
+      return { name: key, value: data2[key], status: 'added' };
     }
-    if (fileContent1[element] !== fileContent2[element]) {
+    if (!_.isEqual(data1[key], data2[key])) {
       return {
-        name: element,
-        value: fileContent1[element],
+        name: key,
+        value: data1[key],
         status: 'updated',
-        newValue: fileContent2[element],
+        newValue: data2[key],
       };
     }
-    return { name: element, value: fileContent1[element], status: 'unchanged' };
+    return { name: key, value: data1[key], status: 'unchanged' };
   });
 };
 

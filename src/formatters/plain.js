@@ -1,26 +1,29 @@
 import _ from 'lodash';
 
 const normalize = (value) => {
-  const strValue = _.isString(value) ? `'${value}'` : value;
-  return _.isObject(value) ? '[complex value]' : strValue;
+  if (_.isString(value)) {
+    return `'${value}'`;
+  }
+  if (_.isPlainObject(value)) {
+    return '[complex value]';
+  }
+  return value;
 };
 
+const makePath = (acc, property) => [...acc, property].join('.');
+
 const mapping = {
-  removed: (element, propPath) => `Property '${propPath.join('.')}' was ${element.status}`,
-  added: (element, propPath) => `Property '${propPath.join('.')}' was ${element.status} with value: ${normalize(element.value)}`,
-  updated: (element, propPath) => `Property '${propPath.join('.')}' was ${element.status}. From ${normalize(element.value)} to ${normalize(element.newValue)}`,
+  removed: (element, currentPath) => `Property '${makePath(currentPath, element.name)}' was ${element.status}`,
+  added: (element, currentPath) => `Property '${makePath(currentPath, element.name)}' was ${element.status} with value: ${normalize(element.value)}`,
+  updated: (element, currentPath) => `Property '${makePath(currentPath, element.name)}' was ${element.status}. From ${normalize(element.value)} to ${normalize(element.newValue)}`,
   unchanged: () => [],
-  nested: (element, propPath, iter) => iter(element.children, propPath),
+  nested: (element, currentPath, iter) => iter(element.children, [...currentPath, element.name]),
 };
 
 export default (tree) => {
-  const iter = (astTree, propPath) => {
+  const iter = (astTree, currentPath) => {
     const result = astTree
-      .flatMap((astElement) => {
-        const { name, status } = astElement;
-        const propPathAcc = [...propPath, name];
-        return mapping[status](astElement, propPathAcc, iter);
-      });
+      .flatMap((astElement) => mapping[astElement.status](astElement, currentPath, iter));
     return result.join('\n');
   };
   return iter(tree, []);
