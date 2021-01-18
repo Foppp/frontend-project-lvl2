@@ -6,7 +6,7 @@
 #### INSTALATION
 
 ```
-    make install
+    make install @hexlet/code
 ```
 #### HELP
 
@@ -17,8 +17,18 @@
 #### RUN
 
 ```
-    gendiff path/to/file1 path/to/file2 [formatter]
+    gendiff [--format formatter] path/to/file1 path/to/file2 
 ```
+
+#### DEPENDENCY USE
+
+```
+    import genDiff from '@hexlet/code';
+
+    const diff = genDiff(filepath1, filepath2,[formatter);
+    console.log(diff);
+```
+
 ###### Supported formats : stylish (default) , plain, json
 
 ### EXAMPLES :
