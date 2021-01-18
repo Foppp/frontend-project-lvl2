@@ -3,6 +3,24 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/Foppp/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/Foppp/frontend-project-lvl2/actions?query=workflow%3Ahexlet-check)
 
+#### INSTALATION
+
+```
+    make install
+```
+#### HELP
+
+```
+    gendiff -h
+```
+
+#### RUN
+
+```
+    gendiff path/to/file1 path/to/file2 [formatter]
+```
+###### Supported formats : stylish (default) , plain, json
+
 ### EXAMPLES :
 
 ##### Simple .json file example
