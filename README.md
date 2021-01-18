@@ -7,29 +7,41 @@
 
 Compares two configuration files and shows a difference.
 #### INSTALLATION
+```
+   $ make install
+```
 
+#### LINK
 ```
-   $ make install @hexlet/code
+   $ make link
 ```
+
 #### HELP
-
 ```
    $ gendiff -h
+
+     Usage: gendiff [options] <filepath1> <filepath2>
+
+     Compares two configuration files and shows difference.
+
+   Options:
+      -V, --version        output the version number
+      -f, --format [type]  output format (default: "stylish")
+      -h, --help           display help for command
 ```
 
 #### CLI USE
-
 ```
-   $ gendiff [--format formatter] path/to/file1 path/to/file2 
-```
+   $ gendiff filepath1.json filepath2.json
 
-#### DEPENDENCY USE
-
-```
-    import genDiff from '@hexlet/code';
-
-    const diff = genDiff(filepath1, filepath2,[formatter);
-    console.log(diff);
+{
+  - follow: false
+    host: hexlet.io
+  - proxy: 123.234.53.22
+  - timeout: 50
+  + timeout: 20
+  + verbose: true
+}
 ```
 
 ##### Supported formats: JSON, YML
