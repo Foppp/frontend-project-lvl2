@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const makeIndent = (depth) => '  '.repeat(depth * 2);
+const makeIndent = (depth, spacesCount = 2) => '  '.repeat((depth * spacesCount) - 2);
 
 const stringifyValue = (obj, depth) => {
   if (!_.isPlainObject(obj)) {
@@ -28,7 +28,7 @@ const stylish = (tree) => {
       .flatMap((astElement) => mapping[astElement.status](astElement, depth, iter));
     return `{\n${stringifiedElements.join('\n')}\n${makeIndent(depth)}}`;
   };
-  return iter(tree, 0);
+  return iter(tree, 1);
 };
 
 export default stylish;
