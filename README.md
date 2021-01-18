@@ -14,7 +14,7 @@
     gendiff -h
 ```
 
-#### RUN
+#### CLI USE
 
 ```
     gendiff [--format formatter] path/to/file1 path/to/file2 
@@ -29,7 +29,8 @@
     console.log(diff);
 ```
 
-###### Supported formats : stylish (default) , plain, json
+##### Supported formats: JSON, YML
+##### Formatters : stylish (default) , plain, json
 
 ### EXAMPLES :
 
