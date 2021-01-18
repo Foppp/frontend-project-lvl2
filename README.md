@@ -8,21 +8,21 @@
 Compares two configuration files and shows a difference.
 #### INSTALLATION
 ```
-   $ make install
+$ make install
 ```
 
 #### LINK
 ```
-   $ make link
+$ make link
 ```
 
 #### HELP
 ```
-   $ gendiff -h
+$ gendiff -h
 
-     Usage: gendiff [options] <filepath1> <filepath2>
+   Usage: gendiff [options] <filepath1> <filepath2>
 
-     Compares two configuration files and shows difference.
+   Compares two configuration files and shows difference.
 
    Options:
       -V, --version        output the version number
@@ -32,7 +32,7 @@ Compares two configuration files and shows a difference.
 
 #### CLI USE
 ```
-   $ gendiff filepath1.json filepath2.json
+$ gendiff filepath1.json filepath2.json
 
 {
   - follow: false
@@ -44,8 +44,8 @@ Compares two configuration files and shows a difference.
 }
 ```
 
-##### Supported formats: JSON, YML
-##### Formatters : stylish (default) , plain, json
+#### Supported formats: JSON, YML
+#### Formatters : stylish (default) , plain, json
 
 ### EXAMPLES :
 
