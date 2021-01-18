@@ -6,18 +6,18 @@
 #### INSTALATION
 
 ```
-    make install @hexlet/code
+   $ make install @hexlet/code
 ```
 #### HELP
 
 ```
-    gendiff -h
+   $ gendiff -h
 ```
 
 #### CLI USE
 
 ```
-    gendiff [--format formatter] path/to/file1 path/to/file2 
+   $ gendiff [--format formatter] path/to/file1 path/to/file2 
 ```
 
 #### DEPENDENCY USE
