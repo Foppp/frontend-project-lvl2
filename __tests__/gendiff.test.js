@@ -18,13 +18,9 @@ describe('Compare two files', () => {
   test.each(formats)('%s files', (fileFormat) => {
     const file1 = getFixturePath(`file1.${fileFormat}`);
     const file2 = getFixturePath(`file2.${fileFormat}`);
-    const actualStylish = genDiff(file1, file2, 'stylish');
-    const actualPlain = genDiff(file1, file2, 'plain');
-    const actualJson = genDiff(file1, file2, 'json');
-    const actualDefault = genDiff(file1, file2);
-    expect(actualStylish).toEqual(expectedStylish);
-    expect(actualPlain).toEqual(expectedPlain);
-    expect(actualJson).toEqual(expectedJson);
-    expect(actualDefault).toEqual(expectedStylish);
+    expect(genDiff(file1, file2, 'stylish')).toEqual(expectedStylish);
+    expect(genDiff(file1, file2, 'plain')).toEqual(expectedPlain);
+    expect(genDiff(file1, file2, 'json')).toEqual(expectedJson);
+    expect(genDiff(file1, file2)).toEqual(expectedStylish);
   });
 });
