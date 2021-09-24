@@ -5,7 +5,16 @@
 
 #### DESCRIPTION
 
-Compares two configuration files and shows a difference.
+### CLI Utility that compares two configuration files and shows a difference in comfortable formates.
+
+* Working with the file system with Node.js
+* Working with trees and tree recursion
+* Connection and working with third-party libraries: Commander, lodash
+* Automated testing (TDD): Jest
+* Working with command line parameters
+* Reading files, parsing incoming data
+
+
 #### INSTALLATION
 ```
 $ make install
