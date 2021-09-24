@@ -15,16 +15,6 @@
 * Reading files, parsing incoming data
 
 
-#### INSTALLATION
-```
-$ make install
-```
-
-#### LINK
-```
-$ make link
-```
-
 #### HELP
 ```
 $ gendiff -h
@@ -143,3 +133,15 @@ Property 'group3' was added with value: [complex value]
 ##### Nested .json and .yaml files with json format example
 
 [![asciicast](https://asciinema.org/a/3fkwLXmoY6o6I5fZNIRDdTm7d.svg)](https://asciinema.org/a/3fkwLXmoY6o6I5fZNIRDdTm7d)
+
+
+#### INSTALLATION
+```
+$ make install
+```
+
+#### LINK
+```
+$ make link
+```
+
