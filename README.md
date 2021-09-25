@@ -5,7 +5,7 @@
 
 #### DESCRIPTION
 
-### CLI Utility that compares two configuration files and shows a difference in comfortable formates.
+## CLI Utility that compares two configuration files (YAML / JSON) and shows a difference in comfortable formates. The main goal was to learn how to work with tree data structures and recursive algorithms.
 
 * Working with the file system with Node.js
 * Working with trees and tree recursion
